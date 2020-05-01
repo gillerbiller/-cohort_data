@@ -2,22 +2,27 @@
 
 
 def all_houses(filename):
-    """Return a set of all house names in the given file.
 
-    For example:
-      >>> unique_houses('cohort_data.txt')
-      {"Dumbledore's Army", 'Gryffindor', ..., 'Slytherin'}
+    unique_houses = open("cohort_data.txt")
 
-    Arguments:
-      - filename (str): the path to a data file
+    every_house = []
 
-    Return:
-      - set[str]: a set of strings
-    """
+    for item in unique_houses:
 
-    houses = set()
+      item = item.rstrip()
 
-    # TODO: replace this with your code
+      sectioned_cohort_data = item.split('|')
+
+      house_names = sectioned_cohort_data[2]
+
+      if house_names == "":
+        continue
+      else:  
+        every_house.append(house_names)
+      
+    houses = set(every_house)
+
+    unique_houses.close()
 
     return houses
 
