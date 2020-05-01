@@ -54,10 +54,29 @@ def students_by_cohort(filename, cohort='All'):
     Return:
       - list[list]: a list of lists
     """
+    # TODO: replace this with your code
+
+     students_and_cohorts = open("cohort_data.txt")
+
+    all_student_names = []
+
+    for item in students_and_cohorts:
+
+      item = item.rstrip()
+
+      sectioned_cohort_data = item.split('|')
+
+      student_first_name = sectioned_cohort_data[0]
+      student_last_name = sectioned_cohort_data[1]
+      cohort = sectioned_cohort_data[4]
+
+      all_student_names.append(student_first_name + student_last_name)
+
+      print(all_student_names)
 
     students = []
 
-    # TODO: replace this with your code
+    
 
     return sorted(students)
 
