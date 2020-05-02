@@ -1,8 +1,9 @@
 """Functions to parse a file containing student data."""
 
 
-def all_houses(filename):
-
+def all_houses(filename): 
+    """Return a set of all houses"""
+  
     unique_houses = open("cohort_data.txt")
 
     every_house = []
@@ -28,89 +29,43 @@ def all_houses(filename):
 
 
 def students_by_cohort(filename, cohort='All'):
-    """Return a list of students' full names by cohort.
+    """Return a list of students' full names by cohort."""
 
-    Names are sorted in alphabetical order. If a cohort isn't
-    given, return a list of all students. For example:
-      >>> students_by_cohort('cohort_data.txt')
-      ['Adrian Pucey', 'Alicia Spinnet', ..., 'Zacharias Smith']
+    students_and_cohorts = open("cohort_data.txt")
 
-      >>> students_by_cohort('cohort_data.txt', cohort='Fall 2015')
-      ['Angelina Johnson', 'Cho Chang', ..., 'Terence Higgs', 'Theodore Nott']
-
-      >>> students_by_cohort('cohort_data.txt', cohort='Winter 2016')
-      ['Adrian Pucey', 'Andrew Kirke', ..., 'Roger Davies', 'Susan Bones']
-
-      >>> students_by_cohort('cohort_data.txt', cohort='Spring 2016')
-      ['Cormac McLaggen', 'Demelza Robins', ..., 'Zacharias Smith']
-
-      >>> students_by_cohort('cohort_data.txt', cohort='Summer 2016')
-      ['Alicia Spinnet', 'Dean Thomas', ..., 'Terry Boot', 'Vincent Crabbe']
-
-    Arguments:
-      - filename (str): the path to a data file
-      - cohort (str): optional, the name of a cohort
-
-    Return:
-      - list[list]: a list of lists
-    """
-    # TODO: replace this with your code
-
-     students_and_cohorts = open("cohort_data.txt")
-
-    all_student_names = []
+    students = []
 
     for item in students_and_cohorts:
 
       item = item.rstrip()
 
-      sectioned_cohort_data = item.split('|')
+      split_cohort_data = item.split('|')
 
-      student_first_name = sectioned_cohort_data[0]
-      student_last_name = sectioned_cohort_data[1]
-      cohort = sectioned_cohort_data[4]
+      student_first_name = split_cohort_data[0]
 
-      all_student_names.append(student_first_name + student_last_name)
+      student_last_name = split_cohort_data[1]
 
-      print(all_student_names)
+      student_cohort = split_cohort_data[4] #broke the code for hours by 
+      #assigning this to cohort which was already a place in memory as the 
+      #argument 
 
-    students = []
+      student_full_name = student_first_name+ " " + student_last_name
 
+      if student_cohort == "G" or student_cohort == "I":
+        continue
     
+      elif cohort ==  student_cohort:
+        students.append(student_full_name)
+
+      elif cohort == "All":
+        students.append(student_full_name)
 
     return sorted(students)
-
-
+    
 def all_names_by_house(filename):
-    """Return a list that contains rosters for all houses, ghosts, instructors.
-
-    Rosters appear in this order:
-    - Dumbledore's Army
-    - Gryffindor
-    - Hufflepuff
-    - Ravenclaw
-    - Slytherin
-    - Ghosts
-    - Instructors
-
-    Each roster is a list of names sorted in alphabetical order.
-
-    For example:
-      >>> rosters = hogwarts_by_house('cohort_data.txt')
-      >>> len(rosters)
-      7
-
-      >>> rosters[0]
-      ['Alicia Spinnet', ..., 'Theodore Nott']
-      >>> rosters[-1]
-      ['Filius Flitwick', ..., 'Severus Snape']
-
-    Arguments:
-      - filename (str): the path to a data file
-
-    Return:
-      - list[list]: a list of lists
-    """
+    """Return a list that contains rosters for all houses, ghosts, instructors."""
+    
+    students_within_a_house = open("cohort_data.txt")
 
     dumbledores_army = []
     gryffindor = []
@@ -120,9 +75,55 @@ def all_names_by_house(filename):
     ghosts = []
     instructors = []
 
-    # TODO: replace this with your code
+    for item in students_within_a_house:
 
-    return []
+      item = item.rstrip()
+
+      splitup_cohort_data = item.split('|')
+
+      student_first_name = splitup_cohort_data[0]
+
+      student_last_name = splitup_cohort_data[1]
+
+      house_name = splitup_cohort_data[2]
+
+      cohort_name = splitup_cohort_data[4]
+
+      student_full_name = student_first_name+ " " + student_last_name
+
+      if house_name == "" and cohort_name == "G":
+        ghosts.append(student_full_name)
+
+      elif house_name == "" and cohort_name == "I":
+        instructors.append(student_full_name)
+
+      elif house_name == "Dumbledore's Army":
+        dumbledores_army.append(student_full_name)
+
+      elif house_name == "Gryffindor":
+        gryffindor.append(student_full_name)
+
+      elif house_name == "Hufflepuff":
+        hufflepuff.append(student_full_name)
+
+      elif house_name == "Ravenclaw":
+        ravenclaw.append(student_full_name)
+
+      elif house_name == "Slytherin":
+        slytherin.append(student_full_name)
+
+    dumbledores_army.sort()
+    gryffindor.sort()
+    hufflepuff.sort()
+    ravenclaw.sort()
+    slytherin.sort()
+    ghosts.sort()
+    instructors.sort()
+
+    all_houses = [dumbledores_army, gryffindor, hufflepuff, ravenclaw, 
+    slytherin, ghosts, instructors]
+
+    return (all_houses)
 
 
 def all_data(filename):
